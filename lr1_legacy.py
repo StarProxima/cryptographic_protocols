@@ -28,41 +28,31 @@ def gcd_extended(a, b):
         y = x1
         print(f"Текущие значения: gcd={gcd}, x={x}, y={y}, a={a}, b={b}")
         return gcd, x, y
-    
-def euler_method(a, b, m):
-    g, _, _ = gcd_extended(a, m)
-
-    if b % g != 0 and g != 1:
-        print("Сравнение не может быть решено.")
-        return None
-
-    phi_m = euler_phi(m)
-    print(f"Функция Эйлера (phi) для m = {m} равна {phi_m}")
-    inv_a = pow(a, phi_m - 1, m)
-    x0 = (inv_a * b) % m
-    print(f"Обратный элемент a по модулю m с использованием функции Эйлера: {inv_a}")
-    return x0
-
-def gcd_extended_method(a, b, m):
-    g, x, y = gcd_extended(a, m)
-    solutions = []
-
-    if b % g != 0:
-        print("Сравнение не может быть решено.")
-        return None
-
-    x0 = (x * (b // g)) % m
-    for i in range(g):
-        solution = (x0 + i * (m // g)) % m
-        print(f"Решение: x = {solution} (для i = {i})")
-        solutions.append(solution)
-    return solutions
 
 def modular_linear_equation_solver(a, b, m):
     """Решение сравнения ax ≡ b (mod m)"""
-    
-    print(f"Функция Эйлера: {euler_method(a, b, m)}")
-    print(f"Расширенный алгоритма Евклида: {gcd_extended_method(a, b, m)}")
-    
+    g, x, y = gcd_extended(a, m)
+    solutions = []
+    if b % g == 0:
+        if g == 1:  # a и m взаимно просты, можно применить функцию Эйлера
+            phi_m = euler_phi(m)
+            print(f"Функция Эйлера (phi) для m = {m} равна {phi_m}")
+            inv_a = pow(a, phi_m - 1, m)
+            x0 = (inv_a * b) % m
+            print(f"Обратный элемент a по модулю m с использованием функции Эйлера: {inv_a}")
+            solutions.append(x0)
+        else:  # Используем расширенный алгоритм Евклида для решения
+            x0 = (x * (b // g)) % m
+            for i in range(g):
+                solution = (x0 + i * (m // g)) % m
+                print(f"Решение: x = {solution} (для i = {i})")
+                solutions.append(solution)
+        return solutions
+    else:
+        print("Сравнение не имеет решений.")
+        return None
 
-modular_linear_equation_solver(3, 19, 34)
+# Пример использования функции с логированием
+a, b, m = 3, 19, 34  # Пример значений
+solutions = modular_linear_equation_solver(a, b, m)
+print(f"Все решения: {solutions}")
