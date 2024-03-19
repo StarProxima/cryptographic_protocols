@@ -33,12 +33,12 @@ def verify_signature(public_key, message, signature):
 # Пример использования
 private_key, public_key = generate_keys()
 
-print(f'private key: {private_key}')
-print(f'public key: {public_key}')
+print(f'Закрытый ключ: {private_key}')
+print(f'Открытый ключ: {public_key}')
 
 # Подпись сообщения
 message = "Hello, World!"
-print(f'message: {message}')
+print(f'Сообщение: {message}')
 signature = sign_message(private_key, message)
 print(f"Подпись: {signature}")
 

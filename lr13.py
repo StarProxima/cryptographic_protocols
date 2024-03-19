@@ -24,8 +24,8 @@ def aes_ctr_decrypt(iv, ciphertext, key):
 
 # Пример использования
 key = os.urandom(32)  # AES-256 требует ключ длиной 32 байта
-print(f'key: {key}')
-plaintext = b"Bui"
+print(f'Ключ: {key}')
+plaintext = b"AES Test"
 print(f'Текст: {plaintext}')
 
 iv, ciphertext = aes_ctr_encrypt(plaintext, key)
