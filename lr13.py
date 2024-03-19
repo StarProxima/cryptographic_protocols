@@ -3,9 +3,9 @@ from cryptography.hazmat.backends import default_backend
 import os
 
 def aes_ctr_encrypt(plaintext, key):
-    # Генерируем случайный инициализирующий вектор (IV)
+    # Генерируем случайный инициализирующий вектор
     iv = os.urandom(16)
-    print(f"IV: {iv}")
+    print(f"Инициализирующий вектор {iv}")
     # Создаем объект шифра
     cipher = Cipher(algorithms.AES(key), modes.CTR(iv), backend=default_backend())
     encryptor = cipher.encryptor()
